@@ -1,0 +1,18 @@
+{
+  "success": "Success",
+  "created": "Created",
+  "notFound": "Not Found",
+  "noDataFound": "No data found",
+  "serverError": "Internal server error",
+  "unAuthorizedAccess": "Unauthorized access",
+  "firstNameRequired": "First name required",
+  "firstNameMin": "Enter at least 3 characters in first name",
+  "lastNameRequired": "Last name required",
+  "lastNameMin": "Enter at least 3 characters in last name",
+  "emailRequired": "Email-Id Required",
+  "invalidEmail": "Invalid email address",
+  "passwordRequired": "Password Required",
+  "invalidPassword": "Invalid password",
+  "duplicateEmail": "Duplicate email found",
+  "invalidEmailOrPassword": "Invalid email or password"
+}

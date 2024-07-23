@@ -1,0 +1,489 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Demo APIs",
+    "termsOfService": "NA",
+    "contact": {
+      "email": "arup.das@indusnet.co.in"
+    },
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "/api/v1"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Auth"
+    },
+    {
+      "name": "Users"
+    }
+  ],
+  "paths": {
+    "/auth": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Create User Account",
+        "description": "Create User Account",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AcceptLanguage"
+          }
+        ],
+        "requestBody": {
+          "description": "An object defining our schema for create user",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/createUserRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/createUserResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/badRequestResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/serverErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "x-codegen-request-body-name": "body"
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "User Login",
+        "description": "User Login",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AcceptLanguage"
+          }
+        ],
+        "requestBody": {
+          "description": "An object defining our schema for this request",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/loginUserRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/loginUserResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/badRequestResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/serverErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "x-codegen-request-body-name": "body"
+      }
+    },
+    "/auth/token": {
+      "get": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Get New Token",
+        "description": "Get New Token",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AcceptLanguage"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/loginUserResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/badRequestResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/forbiddenResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/serverErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "userRefreshToken": []
+          }
+        ]
+      }
+    },
+    "/user/me": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Get User Details",
+        "description": "User Login",
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/AcceptLanguage"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/currentUserDetailsResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/badRequestResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/forbiddenResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorize",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/unauthorizeResponse"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/serverErrorResponse"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "userAccessToken": [],
+            "ApiKeyAuth": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "serverErrorResponse": {
+        "title": "Server Error Response",
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "string"
+          },
+          "timestamp": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "error": "Something Went Wrong",
+          "timestamp": "2023-04-12T10:55:46.382Z"
+        }
+      },
+      "badRequestResponse": {
+        "title": "Bad Request Response",
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "string"
+          },
+          "timestamp": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "error": "Bad Request",
+          "timestamp": "2023-04-12T10:55:46.382Z"
+        }
+      },
+      "forbiddenResponse": {
+        "title": "Forbidden Response",
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "string"
+          },
+          "timestamp": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "error": "Forbidden",
+          "timestamp": "2023-04-12T10:55:46.382Z"
+        }
+      },
+      "unauthorizeResponse": {
+        "title": "Unauthorized Response",
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "string"
+          },
+          "timestamp": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "error": "Unauthorized",
+          "timestamp": "2023-04-12T10:55:46.382Z"
+        }
+      },
+      "createUserRequest": {
+        "required": [
+          "email",
+          "firstName",
+          "lastName",
+          "password"
+        ],
+        "type": "object",
+        "properties": {
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        }
+      },
+      "createUserResponse": {
+        "required": [
+          "email",
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "object",
+            "properties": {
+              "first": {
+                "type": "string"
+              },
+              "lass": {
+                "type": "string"
+              }
+            }
+          },
+          "email": {
+            "type": "string"
+          }
+        }
+      },
+      "loginUserRequest": {
+        "required": [
+          "email",
+          "password"
+        ],
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        }
+      },
+      "loginUserResponse": {
+        "required": [
+          "email",
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "object",
+            "properties": {
+              "first": {
+                "type": "string"
+              },
+              "lass": {
+                "type": "string"
+              }
+            }
+          },
+          "email": {
+            "type": "string"
+          },
+          "accessToken": {
+            "type": "string"
+          },
+          "accessTokenExpiry": {
+            "type": "integer"
+          },
+          "refreshToken": {
+            "type": "string"
+          },
+          "refreshTokenExpiry": {
+            "type": "integer"
+          }
+        }
+      },
+      "currentUserDetailsResponse": {
+        "required": [
+          "_id",
+          "email",
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "object",
+            "properties": {
+              "first": {
+                "type": "string"
+              },
+              "lass": {
+                "type": "string"
+              }
+            }
+          },
+          "email": {
+            "type": "string"
+          },
+          "_id": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "parameters": {
+      "AcceptLanguage": {
+        "name": "accept-language",
+        "in": "header",
+        "description": "Incase we want to send current language along our request",
+        "schema": {
+          "type": "string",
+          "default": "en"
+        }
+      }
+    },
+    "securitySchemes": {
+      "userAccessToken": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      },
+      "userRefreshToken": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}
